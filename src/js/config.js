@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 // Firebase configuration
 let firebaseConfig = {
-  apiKey: "AIzaSyBvrxucljZZtnWWNklG7TmWNiULUMgEryA",
+  apiKey: "AIzaSyBvrxucljZZtnWWNklG7TmWNiULUMgEryA", // do your worst :)
   authDomain: "game-notes-e5a6a.firebaseapp.com",
   databaseURL: "https://game-notes-e5a6a.firebaseio.com",
   projectId: "game-notes-e5a6a",
