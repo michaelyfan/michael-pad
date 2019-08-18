@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MichaelPad</title>
+
+    <!-- Font awesome CDN -->
+    <script src="https://kit.fontawesome.com/b0cd341ce0.js"></script>
+
+    <!-- Bootstrap 4 style CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id='select-wrapper' class='screen-wrapper'>
+      <div class='loading-overlay'>
+        <p>Just a minute...</p>
+      </div>
+      <div>
+        <div id='games' class='responsive-wrapper'></div>
+        <div id='add-game-area' class='responsive-wrapper'>
+          <button id='add-game-toggle' class='btn btn-tan'>
+            <!-- Add -->
+            <i class="fas fa-plus-circle"></i>
+          </button>
+          <form id='add-game-form' style='display:none;'>
+            <input id='add-game-input' class='form-control' type='text' />
+            <button id='add-game-submit' class='btn btn-tan'>
+              <i class="fas fa-check"></i>
+            </button>
+            <button id='add-game-cancel' class='btn btn-tan' type='button' value='Cancel'>
+              <i class="fas fa-times"></i>
+            </button>
+          </form>
+        </div>
+        <div id='sign-out-area'>
+          <button id='sign-out-button' class='btn btn-tan-filled'>Sign out</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

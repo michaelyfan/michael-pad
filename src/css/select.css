@@ -1,0 +1,33 @@
+#select-wrapper {
+  height: 100vh;
+  text-align: center;
+  background-color: #373737;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-row {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.game-row-button {
+  width: 100%;
+}
+
+#add-game-area {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+#add-game-input {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+#sign-out-area {
+
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MichaelPad</title>
+
+    <!-- Quill stylesheet -->
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+    <!-- Font awesome CDN -->
+    <script src="https://kit.fontawesome.com/b0cd341ce0.js"></script>
+
+    <!-- Bootstrap 4 style CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div id='pad-wrapper' class='screen-wrapper'>
+      <div class='loading-overlay'>
+        <p>Just a minute...</p>
+      </div>
+      <div class='responsive-wrapper'>
+        <div id='go-back-wrapper'>
+          <button id='go-back' class='btn btn-gold'>
+            <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+
+        <div id='title-wrapper'>
+          <p id='title'></p>
+        </div>
+
+        <div id='quill-wrapper'>
+          <div id='quill-editor'></div>
+        </div>
+
+        <div id='pad-buttons-wrapper'>
+          <div id='delete-wrapper'>
+            <div id='delete-button-wrapper'>
+              <button id='delete' class='btn btn-tan-filled'>
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+            <div id='delete-dialog' style='display:none'>
+              <span>You sure? There&apos;s <i>no going back</i>. To show your commitment, type out the name of this pad:</span>
+              <input id='delete-dialog-input' class='form-control' type='text' placeholder=':o' />
+              <button id='delete-dialog-yes' class='btn btn-tan-filled'>
+                <i class="fas fa-check"></i>
+              </button>
+              <button id='delete-dialog-no' class='btn btn-tan-filled'>
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+
+          <button id='sign-out-button' class='btn btn-tan-filled'>Sign out</button>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

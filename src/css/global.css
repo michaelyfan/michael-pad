@@ -1,0 +1,98 @@
+/*
+Color scheme hex values:
+#c0b283 pale gold
+#dcd0c0 silk tan
+#f4f4f4 white gray
+#373737 charcoal
+
+From https://www.canva.com/learn/website-color-schemes/, #03 "Muted tones"
+ */
+
+.btn-gold {
+  border: 1px solid #c0b283;
+  color: #c0b283;
+}
+
+.btn-gold:hover {
+  background-color: #c0b283;
+  color: #373737;
+  transition: all 0.2s;
+}
+
+.btn-gold:focus {
+  box-shadow: 0 0 0 1px #dcd0c0;
+}
+
+.btn-gold:active {
+  box-shadow: 0 0 0 1px #dcd0c0;
+}
+
+.btn-tan {
+  border: 1px solid #dcd0c0;
+  color: #dcd0c0;
+}
+
+.btn-tan:hover {
+  background-color: #dcd0c0;
+  color: #373737;
+  transition: all 0.2s;
+}
+
+.btn-tan:focus {
+  box-shadow: 0 0 0 1px #c0b283;
+}
+
+.btn-tan:active {
+  box-shadow: 0 0 0 1px #c0b283;
+}
+
+.btn-tan-filled {
+  background-color: #dcd0c0;
+  color: #373737;
+}
+
+.btn-tan-filled:hover {
+  border: 1px solid #dcd0c0;
+  background-color: #373737;
+  color: #dcd0c0;
+  transition: all 0.2s;
+}
+
+.btn-tan-filled:focus {
+  box-shadow: 0 0 0 1px #c0b283;
+}
+
+.btn-tan-filled:active {
+  box-shadow: 0 0 0 1px #c0b283;
+}
+
+.screen-wrapper {
+  position: relative;
+}
+
+.responsive-wrapper {
+  width: 80vw
+}
+
+@media only screen and (min-width: 568px) {
+  .responsive-wrapper {
+    width: 50vw
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0,0,0,0.7);
+}
+
+.loading-overlay p {
+  font-size: 36px;
+  color: white;
+}

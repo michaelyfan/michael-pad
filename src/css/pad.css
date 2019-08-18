@@ -1,0 +1,56 @@
+body {
+  background-color: #373737;
+}
+
+#pad-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#title {
+  font-size: 32px;
+  text-align: center;
+  color: #c0b283;
+}
+
+#go-back-wrapper {
+  padding-top: 20px;
+}
+
+#quill-wrapper {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.ql-toolbar.ql-snow {
+  border: 0px;
+  background-color: #c0b283;
+}
+
+.ql-toolbar button:hover {
+  color: black;
+}
+
+#quill-editor {
+  border: 1px solid #c0b283;
+  color: #c0b283;
+}
+
+#pad-buttons-wrapper {
+  text-align: center;
+}
+
+#delete-wrapper {
+  margin-bottom: 10px;
+  color: #dcd0c0;
+}
+
+#delete-dialog-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#sign-out-button {
+
+}

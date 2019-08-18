@@ -1,0 +1,25 @@
+body {
+  background-color: #373737;
+}
+
+#login-wrapper {
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-form-input {
+  width: 100%;
+  text-align: center;
+}
+
+#login-form-input:focus {
+  box-shadow: 0 0 0 1px #c0b283;
+}
+
+#login-form-button {
+  width: 100%;
+  margin-top: 10px;
+}
