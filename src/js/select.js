@@ -61,7 +61,7 @@ function renderPads(pads) {
  * @param  {boolean} shouldRender Whether the add game form should be hidden or shown. If this is
  *                                not a valid boolean type, then this function will do nothing
  */
-function renderAddGameForm(shouldRender) {
+function renderAddPadForm(shouldRender) {
   if (shouldRender === true) {
     document.getElementById('add-game-form').style.display = 'block';
     document.getElementById('add-game-toggle').style.display = 'none';
@@ -74,7 +74,7 @@ function renderAddGameForm(shouldRender) {
 /**
  * Clears the input of the add game name box
  */
-function clearAddGameInput() {
+function clearAddPadInput() {
   document.getElementById('add-game-input').value = '';
 }
 
@@ -127,11 +127,11 @@ function signOut() {
  *                      with a promise rejection.
  * @return A Promise resolving to the result of the Firebase add operation, or rejecting to error.
  */
-function addGame(name) {
+function addPad(name) {
   if (!name || !name.trim()) {
     return Promise.reject(new Error('Game name cannot be null or empty.'));
   }
-  return db.collection('pads').add({ name });
+  return db.collection('pads').add({ name: name.trim() });
 }
 
 
@@ -141,10 +141,10 @@ function addGame(name) {
  * Handles user attempt to add a game. Creates the new pad and refreshes the screen by getting
  *   pads again. Refresh will not occur if pad creation results in error.
  */
-async function handleAddGameSubmit() {
+async function handleAddPadSubmit() {
   renderLoading(true);
   try {
-    await addGame(document.getElementById('add-game-input').value);
+    await addPad(document.getElementById('add-game-input').value);
   } catch (e) {
     renderLoading(false);
     alert(e);
@@ -160,17 +160,17 @@ async function handleAddGameSubmit() {
     alert('Sorry! There was an error refreshing pads.\nTry refreshing the page.');
     return;
   }
-  clearAddGameInput();
+  clearAddPadInput();
   renderLoading(false);
 }
 
-document.getElementById('add-game-toggle').addEventListener('click', () => { renderAddGameForm(true) });
+document.getElementById('add-game-toggle').addEventListener('click', () => { renderAddPadForm(true) });
 document.getElementById('add-game-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  handleAddGameSubmit();
+  handleAddPadSubmit();
 });
-// document.getElementById('add-game-submit').addEventListener('click', handleAddGameSubmit);
-document.getElementById('add-game-cancel').addEventListener('click', () => { renderAddGameForm(false) });
+// document.getElementById('add-game-submit').addEventListener('click', handleAddPadSubmit);
+document.getElementById('add-game-cancel').addEventListener('click', () => { renderAddPadForm(false) });
 document.getElementById('sign-out-button').addEventListener('click', signOut);
 
 /**

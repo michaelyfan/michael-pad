@@ -10,3 +10,4 @@ Will be written in vanilla JavaScript and served statically. In a shocking break
 * use something besides default alert
 * ability to reorder game list
 * find a way to style Quill toolbar buttons
+* data backup button or automatic backup
