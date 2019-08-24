@@ -234,7 +234,7 @@ window.onload = () => {
       });
     } else {
       // User is signed out.
-      window.location.assign('login.html');
+      window.location.assign('/');
     }
   });
 }

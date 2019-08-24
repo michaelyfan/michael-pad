@@ -2,7 +2,7 @@ import 'firebase/firestore';
 
 import { firebase } from './config';
 import '../css/global.css';
-import '../css/login.css';
+import '../css/index.css';
 
 const USER_EMAIL = 'michaelyfan100@gmail.com';
 

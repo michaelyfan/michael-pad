@@ -5,7 +5,6 @@ import '../css/select.css';
 // initializes Firestore object
 const db = firebase.firestore();
 
-
 // DOM functions
 
 /**
@@ -187,7 +186,7 @@ window.onload = () => {
       });
     } else {
       // User is signed out.
-      window.location.assign('login.html');
+      window.location.assign('/');
     }
   });
 };

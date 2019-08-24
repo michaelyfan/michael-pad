@@ -20,14 +20,9 @@
 
 #add-game-area {
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 #add-game-input {
-  margin-bottom: 5px;
   text-align: center;
-}
-
-#sign-out-area {
-
 }

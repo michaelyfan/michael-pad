@@ -1,0 +1,12 @@
+body {
+  background-color: #373737;
+}
+
+#notfound-wrapper {
+  height: 100vh;
+
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

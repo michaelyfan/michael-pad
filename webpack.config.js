@@ -10,9 +10,10 @@ const config = {
   //   also can include a babel polyfill that emulates a full ES6 environment (giving us
   //   promises, Object.assign, etc...)
   entry: {
-    login: ['@babel/polyfill', './src/js/login.js'],
+    index: ['@babel/polyfill', './src/js/index.js'],
     select: ['@babel/polyfill', './src/js/select.js'],
-    pad: ['@babel/polyfill', './src/js/pad.js']
+    pad: ['@babel/polyfill', './src/js/pad.js'],
+    notfound: ['@babel/polyfill', './src/js/notfound.js']
   },
 
   module: {
@@ -71,9 +72,9 @@ const config = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/login.html',
-      filename: 'login.html',
-      chunks: ['login'],
+      template: 'src/index.html',
+      filename: 'index.html',
+      chunks: ['index'],
       favicon: 'src/images/favicon.png'
     }),
     new HtmlWebpackPlugin({
@@ -86,6 +87,12 @@ const config = {
       template: 'src/pad.html',
       filename: 'pad.html',
       chunks: ['pad'],
+      favicon: 'src/images/favicon.png'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/notfound.html',
+      filename: '404.html',
+      chunks: ['notfound'],
       favicon: 'src/images/favicon.png'
     })
   ],
