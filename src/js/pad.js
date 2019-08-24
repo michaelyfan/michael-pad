@@ -108,6 +108,32 @@ function updatePad(padId, newOps) {
 }
 
 /**
+ * Refreshes a pad to keep it in sync with DB. Done UPDATE_WAIT time after user edits the pad. 
+ *   Refreshes by updating DB with new pad contents, and then getting the pad contents again.
+ * @param  {String} padId  the ID of the pad to update
+ * @param  {Array} newOps an array of Deltas (object specific to Quill package)
+ * @return {Promise}        A Promise resolving to the result of the update operation or rejecting
+ */
+function refreshPad(padId, newOps) {
+  updatePad(padId, newOps).then(() => {
+    return getPad(padId);
+  }).then((refreshedContent) => {
+    const ops = refreshedContent[1];
+    const Delta = Quill.import('delta');
+
+    // maintains user cursor position
+    if (quill.getSelection()) {
+      const currentIndex = quill.getSelection().index;
+      quill.setContents(new Delta(ops));
+      quill.setSelection(currentIndex);
+    }
+  }).catch((err) => {
+    console.error(err);
+    alert(err);
+  });
+}
+
+/**
  * Deletes the current pad, and redirects user to pad selection screen when finished or notifies
  *   if error happens.
  */
@@ -157,22 +183,7 @@ function startUpdateCountdown() {
   updateTimeout = window.setTimeout(() => {
     const padId = sessionStorage.getItem('gameId');
     const newContent = quill.getContents().ops;
-    updatePad(padId, newContent).then(() => {
-      return getPad(padId)[1]
-    }).then((refreshedContent) => {
-      const Delta = Quill.import('delta');
-
-      // maintains user cursor position
-      if (quill.getSelection()) {
-        const currentIndex = quill.getSelection().index;
-        quill.setContents(new Delta(refreshedContent));
-        quill.setSelection(currentIndex);
-      }
-    }).catch((err) => {
-      console.error(err);
-      alert(err);
-    });
-
+    refreshPad(padId, newContent);
   }, UPDATE_WAIT);
 }
 

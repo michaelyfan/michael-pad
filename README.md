@@ -5,6 +5,7 @@ I wanted a place to take notes while playing video games, and certain existing s
 Will be written in vanilla JavaScript and served statically. In a shocking break from tradition I will be using _no framworks_.
 
 ## TODOS
+* refresh timer exposed to user
 * game pictures
 * password attempt lockout
 * use something besides default alert
