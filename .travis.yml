@@ -13,6 +13,7 @@ jobs:
 before_deploy:
   - npm run build
 deploy:
+  skip_cleanup: true
   provider: surge
   project: ./dist/
   domain: https://michaelpad.surge.sh
