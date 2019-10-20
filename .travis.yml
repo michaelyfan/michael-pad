@@ -10,10 +10,7 @@ jobs:
     - name: "Security Tests"
       script: npm run security
 
-script:
-  - npm run security
-  - npm run lint
-
 deploy:
-  - npm run deploy
+  script:
+    - npm run deploy
   
