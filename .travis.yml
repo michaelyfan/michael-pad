@@ -11,6 +11,7 @@ jobs:
       script: npm run security
 
 deploy:
-  script:
-    - npm run deploy
+  provider: surge
+  project: ./dist/
+  domain: https://michaelpad.surge.sh
   
