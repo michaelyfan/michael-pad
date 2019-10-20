@@ -37,6 +37,12 @@ body {
   color: #c0b283;
 }
 
+#save-notif-wrapper-p {
+  color: #dcd0c0;
+  font-size: 12px;
+  font-style: italic;
+}
+
 #pad-buttons-wrapper {
   text-align: center;
 }
@@ -52,5 +58,5 @@ body {
 }
 
 #sign-out-button {
-
+  margin-bottom: 20px;
 }

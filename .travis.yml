@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - 10
+
+jobs:
+  include:
+    - stage: quality
+      name: "Linting"
+      script: npm run lint
+    - name: "Security Tests"
+      script: npm run security
+
+script:
+  - npm run security
+  - npm run lint
+
+deploy:
+  - npm run deploy
+  

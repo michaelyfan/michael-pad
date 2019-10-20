@@ -43,12 +43,6 @@ function renderLoading(shouldShow) {
 /**
  * Will either show or hide the delete pad dialogue, and hides or shows the button that initially
  *   toggles the delete dialogue.
- * @return {[type]} [description]
- */
-
-/**
- * Will either show or hide the delete pad dialogue, and hides or shows the button that initially
- *   toggles the delete dialogue.
  * @param  {boolean} shouldRender Whether the delete pad dialogue should be shown. If this value is
  *                                not a valid boolean type, nothing will happen.
  */
@@ -63,13 +57,21 @@ function renderDelete(shouldRender) {
 }
 
 /**
- * Changes title of the pad to the specified word or phrase. 
+ * Changes title of the pad to a specified word or phrase. 
  * @param  {String} title The word or phrase to use for the new title. Passing in nothing or null
- *                        clears the title. HTML elements can be passed, and will be rendered
- *                        correctly.
+ *                        clears the title. HTML elements can be passed.
  */
 function renderTitle(title) {
   document.getElementById('title').innerHTML = title || '';
+}
+
+/**
+ * Changes informational text (located under the text editor body) to a specified word or phrase.
+ * @param  {String} text The word or phrase to use for the new information text content. Passing
+ *                       in nothing or null clears the title. HTML elements can be passed.
+ */
+function renderNotif(text) {
+  document.getElementById('save-notif-wrapper-p').innerHTML = text || '';
 }
 
 // general functions
@@ -96,7 +98,7 @@ function getPad(padId) {
 }
 
 /**
- * Updates a pad with new contents
+ * Updates a pad in Firebase with new contents
  * @param  {String} padId  the ID of the pad to update
  * @param  {Array} newOps an array of Deltas (object specific to Quill package)
  * @return {Promise}        A Promise resolving to the result of the update operation or rejecting
@@ -108,8 +110,8 @@ function updatePad(padId, newOps) {
 }
 
 /**
- * Refreshes a pad to keep it in sync with DB. Done UPDATE_WAIT time after user edits the pad. 
- *   Refreshes by updating DB with new pad contents, and then getting the pad contents again.
+ * Refreshes a pad to keep it in sync with DB. Refreshes by updating DB with new pad contents, and
+ *   then getting the pad contents again.
  * @param  {String} padId  the ID of the pad to update
  * @param  {Array} newOps an array of Deltas (object specific to Quill package)
  * @return {Promise}        A Promise resolving to the result of the update operation or rejecting
@@ -172,33 +174,61 @@ async function deletePad() {
 }
 
 /**
- * Waits 5 seconds, then updates the pad with new content and refreshes the pad.
- * If there already is a countdown happening (this function was called less than 5 seconds prior),
- * the old countdown will be cancelled.
+ * Waits 5 seconds, then updates the pad with new content and refreshes the pad. Also updates the
+ *   text that lets the user know of this process. If there already is a countdown happening
+ *   (this function was called less than 5 seconds prior), the old countdown will be cancelled.
  */
 function startUpdateCountdown() {
+  renderNotif('Saving...');
   if (updateTimeout) {
     window.clearTimeout(updateTimeout);
   }
-  updateTimeout = window.setTimeout(() => {
+  updateTimeout = window.setTimeout(async () => {
     const padId = sessionStorage.getItem('gameId');
     const newContent = quill.getContents().ops;
-    refreshPad(padId, newContent);
+    await refreshPad(padId, newContent);
+    renderNotif('All changes saved.');
   }, UPDATE_WAIT);
 }
 
-// starts the pad update process when user changes pad text.
-quill.on('text-change', (delta, oldDelta, source) => {
-  if (source === 'user') {
-    startUpdateCountdown();
+/**
+ * Returns a user to the game selection screen. Will attempt to save their data, then end their
+ *   session with Firebase Auth.
+ */
+async function goBack() {
+  renderLoading(true);
+  const padId = sessionStorage.getItem('gameId');
+  const newContent = quill.getContents().ops;
+  try {
+    await updatePad(padId, newContent);
+  } catch (e) {
+    // get user's confirmation that they want to proceed with loging out
+    const stay = window.confirm('Error saving the pad; any data you\'ve entered recently might not be saved. Stay on this page?');
+    if (stay) {
+      renderLoading(false);
+      return;
+    }
   }
-});
+  window.location.assign('select.html');
+}
 
 /**
- * Signs a user out. Will end their session with Firebase Auth.
+ * Signs a user out. Will attempt to save their data, then end their session with Firebase Auth.
  */
-function signOut() {
+async function signOut() {
   renderLoading(true);
+  const padId = sessionStorage.getItem('gameId');
+  const newContent = quill.getContents().ops;
+  try {
+    await updatePad(padId, newContent);
+  } catch (e) {
+    // get user's confirmation that they want to proceed with loging out
+    const goOn = window.confirm('Error saving the pad; any data you\'ve entered recently might not be saved. Continue logging out?');
+    if (!goOn) {
+      renderLoading(false);
+      return;
+    }
+  }
   firebase.auth().signOut();
 }
 
@@ -206,7 +236,7 @@ function signOut() {
 
 document.getElementById('sign-out-button').addEventListener('click', signOut);
 document.getElementById('go-back').addEventListener('click', () => {
-  window.location.assign('select.html');
+  goBack();
 });
 document.getElementById('delete').addEventListener('click', () => {
   renderDelete(true);
@@ -216,6 +246,12 @@ document.getElementById('delete-dialog-yes').addEventListener('click', () => {
 });
 document.getElementById('delete-dialog-no').addEventListener('click', () => {
   renderDelete(false);
+});
+// starts the pad update process when user changes pad text.
+quill.on('text-change', (delta, oldDelta, source) => {
+  if (source === 'user') {
+    startUpdateCountdown();
+  }
 });
 
 // On load, retrieves pad name and data.

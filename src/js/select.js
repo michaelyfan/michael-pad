@@ -94,7 +94,7 @@ function launchPad(id) {
  * Retrieves pads from Firestore
  */
 function getPads() {
-  return db.collection('pads').get().then((res) => {
+  return db.collection('pads').orderBy('name').get().then((res) => {
     
     // compile pad data
     const padsData = [];

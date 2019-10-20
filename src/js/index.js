@@ -5,6 +5,7 @@ import '../css/global.css';
 import '../css/index.css';
 
 const USER_EMAIL = 'michaelyfan100@gmail.com';
+const asdf = '';
 
 
 // DOM functions
