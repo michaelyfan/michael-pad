@@ -6,7 +6,7 @@ jobs:
   include:
     - stage: quality
       name: "Linting"
-      script: npm run lint
+      script: npm run lintdsa
     - name: "Security Tests"
       script: npm run security
 
