@@ -7,8 +7,9 @@ import '../css/pad.css';
 // initializes Firestore object
 const db = firebase.firestore();
 
-// The amount of time to wait after a user edit to automatically save changes
-const UPDATE_WAIT = 2500;
+// The amount of time to wait after a user edit to automatically save changes, in milliseconds.
+// For example, to set this to x seconds, set UPDATE_WAIT to x * 1000.
+const UPDATE_WAIT = 10000;
 
 // initializes and renders the Quill editor
 let quill;
@@ -110,32 +111,6 @@ function updatePad(padId, newOps) {
 }
 
 /**
- * Refreshes a pad to keep it in sync with DB. Refreshes by updating DB with new pad contents, and
- *   then getting the pad contents again.
- * @param  {String} padId  the ID of the pad to update
- * @param  {Array} newOps an array of Deltas (object specific to Quill package)
- * @return {Promise}        A Promise resolving to the result of the update operation or rejecting
- */
-function refreshPad(padId, newOps) {
-  updatePad(padId, newOps).then(() => {
-    return getPad(padId);
-  }).then((refreshedContent) => {
-    const ops = refreshedContent[1];
-    const Delta = Quill.import('delta');
-
-    // maintains user cursor position
-    if (quill.getSelection()) {
-      const currentIndex = quill.getSelection().index;
-      quill.setContents(new Delta(ops));
-      quill.setSelection(currentIndex);
-    }
-  }).catch((err) => {
-    console.error(err);
-    alert(err);
-  });
-}
-
-/**
  * Deletes the current pad, and redirects user to pad selection screen when finished or notifies
  *   if error happens.
  */
@@ -174,9 +149,10 @@ async function deletePad() {
 }
 
 /**
- * Waits 5 seconds, then updates the pad with new content and refreshes the pad. Also updates the
- *   text that lets the user know of this process. If there already is a countdown happening
- *   (this function was called less than 5 seconds prior), the old countdown will be cancelled.
+ * Waits UPDATE_WAIT / 1000 seconds, then updates the pad with new content and refreshes the pad.
+ *   Also updates the text that lets the user know of this process. If there already is a 
+ *   countdown happening (this function was called less than 5 seconds prior), the old countdown
+ *   will be cancelled.
  */
 function startUpdateCountdown() {
   renderNotif('Saving...');
@@ -186,7 +162,7 @@ function startUpdateCountdown() {
   updateTimeout = window.setTimeout(async () => {
     const padId = sessionStorage.getItem('gameId');
     const newContent = quill.getContents().ops;
-    await refreshPad(padId, newContent);
+    await updatePad(padId, newContent);
     renderNotif('All changes saved.');
   }, UPDATE_WAIT);
 }
@@ -202,7 +178,8 @@ async function goBack() {
   try {
     await updatePad(padId, newContent);
   } catch (e) {
-    // get user's confirmation that they want to proceed with loging out
+    // in the event of data not uploaded, get user's confirmation that they want to proceed with
+    // going back
     const stay = window.confirm('Error saving the pad; any data you\'ve entered recently might not be saved. Stay on this page?');
     if (stay) {
       renderLoading(false);
@@ -222,7 +199,8 @@ async function signOut() {
   try {
     await updatePad(padId, newContent);
   } catch (e) {
-    // get user's confirmation that they want to proceed with loging out
+    // in the event of data not uploaded, get user's confirmation that they want to proceed with
+    // logging out
     const goOn = window.confirm('Error saving the pad; any data you\'ve entered recently might not be saved. Continue logging out?');
     if (!goOn) {
       renderLoading(false);
