@@ -4,7 +4,7 @@
 
 I wanted a mobile-responsive site to take notes while playing video games, and certain existing solutions kept failing on me. Mainly for use on my phone, and on Steam's in-game browser.
 
-Will be written in vanilla JavaScript and served statically. In a shocking break from tradition I will be using _no framworks_.
+Will be written in vanilla JavaScript and served statically. In a shocking break from tradition I will be using _no frameworks_.
 
 ### TODOS
 * find a way to style Quill toolbar buttons
