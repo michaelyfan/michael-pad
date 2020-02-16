@@ -9,7 +9,7 @@ const db = firebase.firestore();
 
 // The amount of time to wait after a user edit to automatically save changes, in milliseconds.
 // For example, to set this to x seconds, set UPDATE_WAIT to x * 1000.
-const UPDATE_WAIT = 10000;
+const UPDATE_WAIT = 2500;
 
 // initializes and renders the Quill editor
 let quill;
