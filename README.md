@@ -7,12 +7,10 @@ I wanted a mobile-responsive site to take notes while playing video games, and c
 Will be written in vanilla JavaScript and served statically. In a shocking break from tradition I will be using _no frameworks_.
 
 ### TODOS
-* find a way to style Quill toolbar buttons
-* data backup button or automatic backup
-* use SASS, but please have this bundle automatically during development
+* game pictures
+* game list reordering
+* find a way to style Quill toolbar buttons (specifically, changing hover color)
+* use SASS, but bundle automatically during development
 * webpack config should handle CSS -- this responsibility should not be the js files' (opinionated)
 * on a pad page, scroll down all the way, then click sign out--overlay error
-
-### For kicks
 * Migrate to Typescript
-* game pictures
