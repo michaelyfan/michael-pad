@@ -6,6 +6,8 @@ before_deploy:
   - npm run build
 
 jobs:
+  allow_failures:
+    - script: npm run security
   include:
     - stage: quality
       name: "Linting"
