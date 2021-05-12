@@ -33,8 +33,8 @@ const config = {
       // compile CSS files with the style and CSS loaders
       // allows one to use relative paths (./ex1/ex2...) in CSS @import and url() statements
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
       },
 
       // below block was taken from other code, is commented out. this app might not need file loaders, but I'm not sure yet.
