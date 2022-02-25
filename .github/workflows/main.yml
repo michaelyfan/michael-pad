@@ -30,6 +30,7 @@ jobs:
         run: npm ci
       - name: Security 
         run: npm run security
+        continue-on-failure: true
   
   build:
     runs-on: ubuntu-latest
