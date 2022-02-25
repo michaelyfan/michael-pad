@@ -1,8 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -20,6 +17,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
       - name: Linting 
         run: npm run lint
     
@@ -27,27 +26,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
       - name: Security 
-        run: npm run lint
+        run: npm run security
   
   build:
     runs-on: ubuntu-latest
     needs: [linting, security]
     steps:
       - uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
         
   deploy:
-    name: Deploy
     runs-on: ubuntu-latest
     needs: [build]
     steps:
       - uses: actions/checkout@v2
-      - uses: dswistowski/surge-sh-action@v1
+      - name: Deploy to Surge
+        uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://michaelpad.surge.sh'
           project: './dist/'
-          login: ${{ secrets.surge_login }}
-          token: ${{ secrets.surge_token }}
-      - name: Deploy to foo-bar.surge.sh
+          login: ${{ secrets.SURGE_LOGIN }}
+          token: ${{ secrets.SURGE_TOKEN }}
