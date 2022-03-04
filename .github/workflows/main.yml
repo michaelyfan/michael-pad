@@ -51,6 +51,6 @@ jobs:
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: 'https://michaelpad.surge.sh'
-          project: './dist/'
+          project: 'dist'
           login: ${{ secrets.SURGE_LOGIN }}
           token: ${{ secrets.SURGE_TOKEN }}
