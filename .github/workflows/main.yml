@@ -24,13 +24,13 @@ jobs:
     
   security:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: npm ci
       - name: Security 
         run: npm run security
-        continue-on-failure: true
   
   build:
     runs-on: ubuntu-latest
