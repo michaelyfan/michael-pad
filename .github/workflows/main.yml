@@ -32,21 +32,17 @@ jobs:
       - name: Security 
         run: npm run security
   
-  build:
+  deploy:
     runs-on: ubuntu-latest
     needs: [linting, security]
+    # only run this job on master branch -- prevents a deploy from happening every time a PR's branch is updated
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: npm ci
       - name: Build project
         run: npm run build
-        
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v2
       - name: Deploy to Surge
         uses: dswistowski/surge-sh-action@v1
         with:
